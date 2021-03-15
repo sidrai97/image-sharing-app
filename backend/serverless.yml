@@ -76,9 +76,9 @@ resources:
             AttributeType: S
           - AttributeName: attachmentURL
             AttributeType: S
-          - AttributeName: userId
-            AttributeType: S
           - AttributeName: tagId
+            AttributeType: S
+          - AttributeName: userId
             AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
