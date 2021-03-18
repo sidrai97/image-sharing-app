@@ -31,6 +31,297 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
+  GetTags:
+    handler: src/lambda/http/GetTags.handler
+    events:
+      - http:
+          method: get
+          path: tags
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TAG_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  GetTagsByUserId:
+    handler: src/lambda/http/GetTagsByUserId.handler
+    events:
+      - http:
+          method: get
+          path: tags/userId
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TAG_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  GetImages:
+    handler: src/lambda/http/GetImages.handler
+    events:
+      - http:
+          method: get
+          path: images
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  GetImagesByUserId:
+    handler: src/lambda/http/GetImagesByUserId.handler
+    events:
+      - http:
+          method: get
+          path: images/userId
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  GetImagesByTagId:
+    handler: src/lambda/http/GetImagesByTagId.handler
+    events:
+      - http:
+          method: get
+          path: images/tagId/{tagId}
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}/index/${self:provider.environment.IMAGES_BY_TAG_INDEX}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  GetImagesByUserIdTagId:
+    handler: src/lambda/http/GetImagesByUserIdTagId.handler
+    events:
+      - http:
+          method: get
+          path: images/userId/tagId/{tagId}
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  CreateTag:
+    handler: src/lambda/http/CreateTag.handler
+    events:
+      - http:
+          method: post
+          path: tags
+          cors: true
+          authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(models/CreateTagRequest.json)}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TAG_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  CreateImage:
+    handler: src/lambda/http/CreateImage.handler
+    events:
+      - http:
+          method: post
+          path: images
+          cors: true
+          authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(models/CreateImageRequest.json)}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  DeleteImage:
+    handler: src/lambda/http/DeleteImage.handler
+    events:
+      - http:
+          method: delete
+          path: images/{imageId}
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
+  UpdateImage:
+    handler: src/lambda/http/UpdateImage.handler
+    events:
+      - http:
+          method: patch
+          path: images/{imageId}
+          cors: true
+          authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(models/UpdateImageRequest.json)}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+          - xray:BatchGetTraces
+          - xray:GetServiceGraph
+          - xray:GetTraceGraph
+          - xray:GetTraceSummaries
+          - xray:GetGroups
+          - xray:GetGroup
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
+
 resources:
   Resources:
     # API Gateway
