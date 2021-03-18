@@ -18,7 +18,6 @@ provider:
     TAG_TABLE: Tags-${self:provider.stage}
     IMAGE_TABLE: Images-${self:provider.stage}
     IMAGES_BY_TAG_INDEX: ImagesByTagIndex
-    IMAGES_ID_INDEX: ImageIdIndex
     ATTACHMENTS_S3_BUCKET: Images-attachments-sidrai97-${self:provider.stage}
     SIGNED_URL_EXPIRATION: '300'
     AUTH_0_JWKS_URL: https://sidrai97.auth0.com/.well-known/jwks.json
@@ -62,7 +61,7 @@ resources:
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
-          - AttributeName: createdAt
+          - AttributeName: tagId
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.TAG_TABLE}
@@ -86,7 +85,7 @@ resources:
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
-          - AttributeName: createdAt
+          - AttributeName: imageId
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.IMAGE_TABLE}
@@ -97,12 +96,6 @@ resources:
                 KeyType: HASH
               - AttributeName: createdAt
                 KeyType: RANGE
-            Projection:
-              ProjectionType: ALL
-          - IndexName: ${self:provider.environment.IMAGES_ID_INDEX}
-            KeySchema:
-              - AttributeName: imageId
-                KeyType: HASH
             Projection:
               ProjectionType: ALL
 
