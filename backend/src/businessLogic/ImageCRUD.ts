@@ -19,7 +19,7 @@ export async function getTags(): Promise<Tag[]> {
   return await imageDB.getTags()
 }
 
-export async function geImages(): Promise<Image[]> {
+export async function getImages(): Promise<Image[]> {
     logger.info(`Retrieving all Images`)  
     return await imageDB.getImages()
 }
@@ -122,4 +122,27 @@ export async function deleteImageById(userId: string, imageId: string): Promise<
     
     await imageDB.deleteImage(imageItem)
     return true
+}
+
+export async function updateImage(imageId: string, userId: string, title: string, tagId: string): Promise<Image> {
+    const imageItem: Image = await imageDB.getImageById(userId, imageId)
+
+    if(!imageItem){
+        logger.error(`Image not Found with ImageId: ${imageId}`)
+        return null
+    }
+
+    if(userId != imageItem.userId){
+        logger.error(`User: ${userId} not authorized to update Image: ${imageId}`)
+        return null
+    }
+
+    imageItem.title = title
+    imageItem.tagId = tagId
+
+    logger.info(`Updating Image: ${imageId} with Title: ${imageItem.title} & TagId: ${imageItem.tagId}`)
+    
+    await imageDB.updateImage(imageItem)
+
+    return imageItem
 }

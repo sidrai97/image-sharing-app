@@ -189,4 +189,24 @@ export class ImageDB {
       }
     }).promise()    
   }
+
+  async updateImage(imageItem: Image) {
+    logger.info(`Updating Image ${imageItem.imageId} in ${this.imageTable}`)
+
+    const userId = imageItem.userId
+    const imageId = imageItem.imageId
+
+    await this.docClient.update({
+      TableName: this.imageTable,
+      Key: {
+        userId,
+        imageId
+      },
+      UpdateExpression: 'set title = :title, tagId = :tagId',
+      ExpressionAttributeValues: {
+        ':title': imageItem.title,
+        ':tagId': imageItem.tagId
+      }
+    }).promise()
+  }
 }
