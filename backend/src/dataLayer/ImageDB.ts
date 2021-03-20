@@ -55,7 +55,7 @@ export class ImageDB {
   async getTags(): Promise<Tag[]> {
     logger.info(`Get all Tags`)
 
-    const result = await this.docClient.query({
+    const result = await this.docClient.scan({
       TableName: this.tagTable
     }).promise()
 
@@ -84,7 +84,7 @@ export class ImageDB {
   async getImages(): Promise<Image[]> {
     logger.info(`Get all Images`)
 
-    const result = await this.docClient.query({
+    const result = await this.docClient.scan({
       TableName: this.imageTable
     }).promise()
 
