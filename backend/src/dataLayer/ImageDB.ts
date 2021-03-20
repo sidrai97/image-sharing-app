@@ -144,10 +144,11 @@ export class ImageDB {
 
     const result = await this.docClient.query({
       TableName: this.imageTable,
-      KeyConditionExpression: 'userId = :userId, tagId = : tagId',
+      IndexName : this.imagesByTagIndex,
+      KeyConditionExpression: 'tagId = :tagId and userId = :userId',
       ExpressionAttributeValues: {
-        ':userId': userId,
-        ':tagId': tagId
+        ':tagId': tagId,
+        ':userId': userId
       },
       ScanIndexForward: false
     }).promise()

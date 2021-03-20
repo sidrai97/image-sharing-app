@@ -183,7 +183,7 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}/index/${self:provider.environment.IMAGES_BY_TAG_INDEX}
       - Effect: Allow
         Action:
           - xray:GetSamplingRules
@@ -381,7 +381,7 @@ resources:
             KeySchema:
               - AttributeName: tagId
                 KeyType: HASH
-              - AttributeName: imageId
+              - AttributeName: userId
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
