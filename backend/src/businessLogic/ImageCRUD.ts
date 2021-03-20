@@ -96,7 +96,7 @@ export async function updateAttachmentURL(imageId: string, userId: string): Prom
         return null
     }
 
-    imageItem.attachmentURL = await imageS3.getUploadUrl(imageId)
+    imageItem.attachmentURL = await imageS3.getAttachmentUrl(imageId)
 
     logger.info(`Updating Image: ${imageId} with Attachment URL: ${imageItem.attachmentURL}`)
     
