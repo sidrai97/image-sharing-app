@@ -42,7 +42,7 @@ functions:
     iamRoleStatements:
       - Effect: Allow
         Action:
-          - dynamodb:Query
+          - dynamodb:Scan
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TAG_TABLE}
       - Effect: Allow
         Action:
@@ -98,7 +98,7 @@ functions:
     iamRoleStatements:
       - Effect: Allow
         Action:
-          - dynamodb:Query
+          - dynamodb:Scan
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGE_TABLE}
       - Effect: Allow
         Action:
@@ -343,11 +343,7 @@ resources:
         AttributeDefinitions:
           - AttributeName: tagId
             AttributeType: S
-          - AttributeName: tagName
-            AttributeType: S
           - AttributeName: userId
-            AttributeType: S
-          - AttributeName: createdAt
             AttributeType: S
         KeySchema:
           - AttributeName: userId
@@ -363,15 +359,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: imageId
             AttributeType: S
-          - AttributeName: title
-            AttributeType: S
-          - AttributeName: attachmentURL
-            AttributeType: S
           - AttributeName: tagId
             AttributeType: S
           - AttributeName: userId
-            AttributeType: S
-          - AttributeName: createdAt
             AttributeType: S
         KeySchema:
           - AttributeName: userId
@@ -385,7 +375,7 @@ resources:
             KeySchema:
               - AttributeName: tagId
                 KeyType: HASH
-              - AttributeName: createdAt
+              - AttributeName: imageId
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
