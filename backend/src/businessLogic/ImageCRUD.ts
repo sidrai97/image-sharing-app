@@ -39,9 +39,9 @@ export async function getImagesByTagId(tagId: string): Promise<Image[]> {
     return await imageDB.getImagesByTagId(tagId)
 }
 
-export async function getImagesByUserIdTagId(userId: string, tagId: string): Promise<Image[]> {
+export async function getImagesByUserTag(userId: string, tagId: string): Promise<Image[]> {
     logger.info(`Fetch Images created By UserId: ${userId} under Tag: ${tagId}`)
-    return await imageDB.getImagesByUserIdTagId(userId,tagId)
+    return await imageDB.getImagesByUserTag(userId,tagId)
 }
 
 export async function createTag(tagName: string, userId: string): Promise<Tag>{

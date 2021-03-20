@@ -15,10 +15,10 @@ provider:
   region: ${opt:region, 'us-east-2'}
 
   environment:
-    TAG_TABLE: Tags-${self:provider.stage}
-    IMAGE_TABLE: Images-${self:provider.stage}
+    TAG_TABLE: Tags-sidrai971-${self:provider.stage}
+    IMAGE_TABLE: Images-sidrai971-${self:provider.stage}
     IMAGES_BY_TAG_INDEX: ImagesByTagIndex
-    ATTACHMENTS_S3_BUCKET: Images-attachments-sidrai97-${self:provider.stage}
+    ATTACHMENTS_S3_BUCKET: images-sidrai971-${self:provider.stage}
     SIGNED_URL_EXPIRATION: '300'
     AUTH_0_JWKS_URL: https://sidrai97.auth0.com/.well-known/jwks.json
 
@@ -171,8 +171,8 @@ functions:
         Resource:
           - "*"
 
-  GetImagesByUserIdTagId:
-    handler: src/lambda/http/GetImagesByUserIdTagId.handler
+  GetImagesByUserTag:
+    handler: src/lambda/http/GetImagesByUserTag.handler
     events:
       - http:
           method: get

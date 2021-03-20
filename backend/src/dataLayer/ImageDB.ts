@@ -139,7 +139,7 @@ export class ImageDB {
     return item as Image
   }
 
-  async getImagesByUserIdTagId(userId: string, tagId: string): Promise<Image[]>{
+  async getImagesByUserTag(userId: string, tagId: string): Promise<Image[]>{
     logger.info(`Get Images by UserId: ${userId} and TagId: ${tagId}`)
 
     const result = await this.docClient.query({
