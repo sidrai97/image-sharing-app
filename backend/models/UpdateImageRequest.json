@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "group",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "tagId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "title",
+      "tagId"
+    ],
+    "additionalProperties": false
+  }
+  
