@@ -1,7 +1,6 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-import { getUserId } from '../../auth/utils'
 import { getImagesByTagId } from '../../businessLogic/ImageCRUD'
 import { createLogger } from '../../utils/logger'
 
@@ -11,7 +10,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   logger.info('Processing getImagesByTagId event', { event })
 
-  const userId = getUserId(event)
   const tagId = event.pathParameters.tagId
   const items = await getImagesByTagId(tagId)
 
