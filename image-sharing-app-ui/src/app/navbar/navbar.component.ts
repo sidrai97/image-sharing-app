@@ -20,10 +20,11 @@ export class NavbarComponent implements OnInit {
       if(!resp){
         return
       }
-      console.log(resp)
       this.auth.idTokenClaims$.subscribe(user => {
+        let token = 'Bearer ' + user.__raw
+        localStorage.setItem('token', 'Bearer ' + user.__raw)
+        console.log(token)
         console.log(user)
-        console.log('Bearer ' + user.__raw)
       })      
     })
   }
