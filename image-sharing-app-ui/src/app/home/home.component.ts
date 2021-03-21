@@ -39,9 +39,16 @@ export class HomeComponent implements OnInit {
   }
 
   filterImagesByTag(tag: any) {
-    this.api.getImagesByTagId(tag.tagId).subscribe(resp => {
-      this.images = resp.items
-    })
+    if(this.userImagesOnly){
+      this.api.getImagesByUserTag(tag.tagId).subscribe(resp => {
+        this.images = resp.items
+      })
+    }
+    else{
+      this.api.getImagesByTagId(tag.tagId).subscribe(resp => {
+        this.images = resp.items
+      })
+    }
   }
 
   filterImagesByUserId() {
