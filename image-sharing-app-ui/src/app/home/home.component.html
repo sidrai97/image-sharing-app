@@ -21,8 +21,8 @@
             <img mat-card-image [src]="image.attachmentURL" class="image-max-height">
             <mat-card-actions>
                 <mat-chip [color]="chipColor[i%3]" selected>{{getTagNameFromTagId(image.tagId)}}</mat-chip>
-                <button mat-icon-button color="accent" matTooltip="Update" (click)="updateImage(image)"><mat-icon>update</mat-icon></button>
-                <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteImage(image.imageId)"><mat-icon>delete</mat-icon></button>
+                <button *ngIf="userDetails.sub == image.userId" mat-icon-button color="accent" matTooltip="Update" (click)="updateImage(image)"><mat-icon>update</mat-icon></button>
+                <button *ngIf="userDetails.sub == image.userId" mat-icon-button color="warn" matTooltip="Delete" (click)="deleteImage(image.imageId)"><mat-icon>delete</mat-icon></button>
             </mat-card-actions>
         </mat-card>
     </div>
