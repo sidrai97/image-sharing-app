@@ -1,0 +1,11 @@
+<h1 mat-dialog-title color="primary">Create Tag</h1>
+<div mat-dialog-content>
+    <mat-form-field class="example-full-width">
+        <mat-label>Tag Name</mat-label>
+        <input matInput [(ngModel)]="tagName" required>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="createTag()">Create Tag</button>
+    <button mat-stroked-button color="primary"  (click)="close()">Close</button>
+</div>
