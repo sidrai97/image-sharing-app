@@ -1,0 +1,18 @@
+<p>
+    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <button mat-icon-button color="accent">
+                <mat-icon *ngIf="!userDetails.picture">account_circle</mat-icon>
+                <img *ngIf="userDetails.picture" [src]="userDetails.picture" style="border-radius: 50%;height: 40px;">
+            </button>
+            &nbsp;
+            <span *ngIf="userDetails.userName">{{userDetails.userName}}</span>
+        </div>
+        <div>
+            <button mat-raised-button color="accent" *ngIf="!isAuthenticated"
+                (click)="auth.loginWithRedirect()">Log in</button>
+            <button mat-raised-button color="accent" *ngIf="isAuthenticated"
+                (click)="auth.logout({ returnTo: document.location.origin })">Log out</button>
+        </div>
+    </mat-toolbar>
+</p>

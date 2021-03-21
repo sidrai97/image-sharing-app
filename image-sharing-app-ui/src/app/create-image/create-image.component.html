@@ -1,0 +1,25 @@
+<h1 mat-dialog-title color="primary">{{type | titlecase }} Image</h1>
+<div mat-dialog-content fxLayout="column">
+    <mat-form-field class="example-full-width">
+        <mat-label>Image Title</mat-label>
+        <input matInput [(ngModel)]="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Select Tag</mat-label>
+        <mat-select [(ngModel)]="selectedTag">
+            <mat-option *ngFor="let tag of tags" [value]="tag">
+                {{tag.tagName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button *ngIf="type == 'add'" mat-stroked-button color="accent" (click)="browseFile()">Browse Image</button>
+    <input hidden type="file" #imageFile name="imageFile" accept="image/*" (change)="uploadFile($event)">
+
+    <span *ngIf="selectedFile">{{selectedFile.name}}</span>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="addImage()">{{type | titlecase }} Image</button>
+    <button mat-stroked-button color="primary" (click)="close()">Close</button>
+</div>
