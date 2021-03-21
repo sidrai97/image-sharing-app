@@ -1,1 +1,39 @@
-<p>home works!</p>
+<div *ngIf="!isAuthenticated" fxLayout="column" fxLayoutAlign="center center">
+    <h1 class="header">
+        Image Sharing App
+    </h1>
+    <h5 class="subheader">
+        Please Login to Continue
+    </h5>
+</div>
+
+<div *ngIf="isAuthenticated" fxLayout="row" fxFlexOffset="200px" fxLayoutGap="50px"
+    fxLayoutAlign="space-around stretch">
+    <div>
+        <div fxLayour="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="createRow">
+            <button mat-stroked-button color="primary" (click)="createImage()">Add Image</button>
+            <mat-slide-toggle color="accent" (change)="toggle($event)">Show only My Images</mat-slide-toggle>
+        </div>
+        <mat-card class="example-card" *ngFor="let image of images; let i = index">
+            <mat-card-header>
+                <mat-card-title>{{image.title}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image [src]="image.attachmentURL" class="image-max-height">
+            <mat-card-actions>
+                <mat-chip [color]="chipColor[i%3]" selected>{{getTagNameFromTagId(image.tagId)}}</mat-chip>
+                <button mat-icon-button color="accent" matTooltip="Update" (click)="updateImage(image)"><mat-icon>update</mat-icon></button>
+                <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteImage(image.imageId)"><mat-icon>delete</mat-icon></button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div>
+        <button mat-stroked-button color="primary" class="createRow" (click)="createTag()">Create Tag</button>
+        <mat-chip-list class="mat-chip-list-stacked">
+            <mat-chip *ngFor="let tag of tags; let i = index" selected [color]="chipColor[i%3]"
+                (click)="filterImagesByTag(tag)">
+                {{tag.tagName}}
+            </mat-chip>
+        </mat-chip-list>
+        <h5>Click on any tag to filter images by that Tag</h5>
+    </div>
+</div>
